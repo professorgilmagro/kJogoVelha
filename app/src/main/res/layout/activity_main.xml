@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:src="@drawable/jogo_da_velha"
+        android:adjustViewBounds="false"
+        android:scaleType="centerInside"
+        android:layout_weight="1"
+        android:layout_gravity="center"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_weight="6"
+        android:gravity="center"
+        android:layout_height="0dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn1"
+                style="@style/btnGame"
+                android:gravity="center"/>
+
+            <Button
+                android:id="@+id/btn2"
+                style="@style/btnGame"
+                android:gravity="center"/>
+
+            <Button
+                android:id="@+id/btn3"
+                style="@style/btnGame"
+                android:gravity="center"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn4"
+                style="@style/btnGame"
+                android:gravity="center"/>
+
+            <Button
+                android:id="@+id/btn5"
+                style="@style/btnGame"
+                android:gravity="center"/>
+
+            <Button
+                android:id="@+id/btn6"
+                style="@style/btnGame"
+                android:gravity="center"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn7"
+                style="@style/btnGame"
+                android:gravity="center"/>
+
+            <Button
+                android:id="@+id/btn8"
+                style="@style/btnGame"
+                android:gravity="center"/>
+
+            <Button
+                android:id="@+id/btn9"
+                style="@style/btnGame"
+                android:gravity="center"/>
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btn_restart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="@color/colorPrimary"
+        android:text="@string/restart"
+        android:textColor="@android:color/white"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textStyle="bold"/>
+
+</LinearLayout>
