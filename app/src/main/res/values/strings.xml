@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">KJogoVelha</string>
     <string name="restart">Reiniciar</string>
+
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">Jogo da Velha</string>
+    <string name="draw_message">Que pena! Ninguém ganhou.</string>
+    <string name="winner_message">Parabéns jogador %1$d, Você venceu!"</string>
+    <string name="revenge">Revanche</string>
 </resources>

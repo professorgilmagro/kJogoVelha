@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:padding="40dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/imgGameOver"
+        android:layout_width="200dp"
+        android:scaleType="centerInside"
+        android:layout_gravity="center"
+        android:src="@drawable/winner"
+        android:layout_height="200dp" />
+
+    <TextView
+        android:id="@+id/txtGameOver"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:textAlignment="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btnGameRevenge"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_marginBottom="16dp"
+        android:background="@color/colorPlayer1"
+        android:text="@string/revenge"
+        android:textColor="@android:color/white"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textStyle="bold"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btnGameRestart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="@color/colorPrimary"
+        android:text="@string/restart"
+        android:textColor="@android:color/white"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textStyle="bold"/>
+
+
+</LinearLayout>

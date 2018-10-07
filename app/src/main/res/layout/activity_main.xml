@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/white"
     android:padding="16dp"
     tools:context=".MainActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:src="@drawable/jogo_da_velha"
         android:adjustViewBounds="false"
         android:scaleType="centerInside"
-        android:layout_weight="1"
         android:layout_gravity="center"/>
 
     <TableLayout
@@ -21,6 +22,34 @@
         android:layout_weight="6"
         android:gravity="center"
         android:layout_height="0dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/txtScorePlayOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                style="@style/score"/>
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/grandmother" />
+
+            <TextView
+                android:id="@+id/txtScorePlayTwo"
+                android:layout_width="wrap_content"
+                android:text="0"
+                android:layout_height="wrap_content"
+                style="@style/score"/>
+
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
@@ -85,16 +114,4 @@
                 android:gravity="center"/>
         </TableRow>
     </TableLayout>
-
-    <Button
-        android:id="@+id/btn_restart"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:background="@color/colorPrimary"
-        android:text="@string/restart"
-        android:textColor="@android:color/white"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:textStyle="bold"/>
-
 </LinearLayout>

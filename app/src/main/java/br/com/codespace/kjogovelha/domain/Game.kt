@@ -1,17 +1,28 @@
 package br.com.codespace.kjogovelha.domain
 
 import android.app.Activity
+import android.media.MediaPlayer
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Button
-import android.widget.Toast
+import android.widget.TextView
 import br.com.codespace.kjogovelha.R
+import br.com.codespace.kjogovelha.dialog.GameOverDialog
+import br.com.codespace.kjogovelha.helper.WindowHelper
 
-open class Game(val activity: Activity, val layoutId: Int, val btnRestartId: Int) {
+open class Game(val activity: Activity, val layoutId: Int) {
     private val playOne = arrayListOf<Int>()
     private val playTwo = arrayListOf<Int>()
     private var currentPlay = 1
+    private val soundClick = MediaPlayer.create(activity, R.raw.u_click)
+    private val soundClickWin = MediaPlayer.create(activity, R.raw.click_mjgh_lab)
+    var winner = -1
+    var score1 = 0
+    var score2 = 0
 
     private fun play(position: Int, btnSelected: Button) {
+        val anim = AnimationUtils.loadAnimation(activity, R.anim.button_animation)
+        btnSelected.startAnimation(anim)
         with(btnSelected) {
             when (currentPlay) {
                 1 -> {
@@ -30,6 +41,8 @@ open class Game(val activity: Activity, val layoutId: Int, val btnRestartId: Int
 
             checkResult()
             isClickable = false
+
+            if (winner == -1) soundClick.start() else soundClickWin.start()
         }
     }
 
@@ -47,61 +60,62 @@ open class Game(val activity: Activity, val layoutId: Int, val btnRestartId: Int
     }
 
     private fun checkResult() {
-        val row1 = listOf(1, 2, 3)
-        val row2 = listOf(4, 5, 6)
-        val row3 = listOf(7, 8, 9)
+        val possibleResults = listOf(
+                listOf(1, 2, 3), listOf(4, 5, 6), listOf(7, 8, 9), listOf(1, 4, 7),
+                listOf(2, 5, 8), listOf(3, 6, 9), listOf(1, 5, 9), listOf(3, 5, 7)
+        )
 
-        val col1 = listOf(1, 4, 7)
-        val col2 = listOf(2, 5, 8)
-        val col3 = listOf(3, 6, 9)
-
-        val diag1 = listOf(1, 5, 9)
-        val diag2 = listOf(3, 5, 7)
-
-        var winner = -1
-
-        with(playOne) {
-            if (containsAll(row1) || containsAll(row2) || containsAll(row3) || containsAll(col1)
-                    || containsAll(col2) || containsAll(col3)
-                    || containsAll(diag1) || containsAll(diag2)) {
+        possibleResults.forEach {
+            if (playOne.containsAll(it)) {
                 winner = 1
+                score1 ++
+                return@forEach
             }
         }
 
-        with(playTwo) {
-            if (containsAll(row1) || containsAll(row2) || containsAll(row3) || containsAll(col1)
-                    || containsAll(col2) || containsAll(col3)
-                    || containsAll(diag1) || containsAll(diag2)) {
+        possibleResults.forEach {
+            if (playTwo.containsAll(it)) {
                 winner = 2
+                score2 ++
+                return@forEach
             }
         }
 
-        when(winner) {
-            1 -> Toast.makeText(activity, "Parabéns! Jogador 1 Venceu", Toast.LENGTH_LONG).show()
-            2 -> Toast.makeText(activity, "Parabéns! Jogador 2 Venceu", Toast.LENGTH_LONG).show()
-        }
-
-        if (winner > 0) {
+        if (isGameOver()) {
             disableAllButtons()
+            updateScore()
+            val sound = if (isDraw()) R.raw.loser else R.raw.winner
+            GameOverDialog(activity, this).show()
+            MediaPlayer.create(activity, sound).start()
         }
     }
 
     fun start()
     {
+        updateScore()
         for (i in 1 .. 9) {
             val id = activity.resources.getIdentifier("btn$i", "id", activity.packageName)
             val btn = activity.findViewById<Button>(id)
             btn.setOnClickListener { btnPosition(btn) }
+            btn.isClickable = true
         }
 
-        activity.findViewById<Button>(btnRestartId).setOnClickListener{ restart() }
+        Runnable { WindowHelper.hideBar(activity.window) }.run()
     }
 
     fun restart() {
+        revenge()
+        score2 = 0
+        score1 = 0
+    }
+
+    fun revenge() {
+        winner = -1
         playOne.clear()
         playTwo.clear()
         activity.setContentView(layoutId)
-        start()
+        soundClickWin.setOnCompletionListener { start() }
+        soundClickWin.start()
     }
 
     private fun disableAllButtons() {
@@ -110,6 +124,19 @@ open class Game(val activity: Activity, val layoutId: Int, val btnRestartId: Int
             val btn = activity.findViewById<Button>(id)
             btn.isClickable = false
         }
+    }
+
+    fun isDraw(): Boolean {
+        return (playOne + playTwo).size == 9 && winner == -1
+    }
+
+    fun isGameOver(): Boolean {
+        return isDraw() || winner > 0
+    }
+
+    fun updateScore() {
+        activity.findViewById<TextView>(R.id.txtScorePlayOne).text = score1.toString()
+        activity.findViewById<TextView>(R.id.txtScorePlayTwo).text = score2.toString()
     }
 
 }
