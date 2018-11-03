@@ -5,6 +5,7 @@ import android.media.MediaPlayer
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import br.com.codespace.kjogovelha.R
 import br.com.codespace.kjogovelha.dialog.GameOverDialog
@@ -16,6 +17,9 @@ open class Game(val activity: Activity, val layoutId: Int) {
     private var currentPlay = 1
     private val soundClick = MediaPlayer.create(activity, R.raw.u_click)
     private val soundClickWin = MediaPlayer.create(activity, R.raw.click_mjgh_lab)
+    private var imgFlag: ImageView = activity.findViewById(R.id.referee)
+    private var txtTurnInfo: TextView = activity.findViewById(R.id.txt_turn_info)
+
     var winner = -1
     var score1 = 0
     var score2 = 0
@@ -39,6 +43,7 @@ open class Game(val activity: Activity, val layoutId: Int) {
                 }
             }
 
+            updateFlag()
             checkResult()
             isClickable = false
 
@@ -92,7 +97,8 @@ open class Game(val activity: Activity, val layoutId: Int) {
 
     fun start()
     {
-        updateScore()
+        imgFlag.setImageResource(R.drawable.grandmother_flag)
+        updateFlag()
         for (i in 1 .. 9) {
             val id = activity.resources.getIdentifier("btn$i", "id", activity.packageName)
             val btn = activity.findViewById<Button>(id)
@@ -104,18 +110,27 @@ open class Game(val activity: Activity, val layoutId: Int) {
     }
 
     fun restart() {
-        revenge()
         score2 = 0
         score1 = 0
+        revenge()
     }
 
     fun revenge() {
         winner = -1
         playOne.clear()
         playTwo.clear()
-        activity.setContentView(layoutId)
+        resetScene()
         soundClickWin.setOnCompletionListener { start() }
         soundClickWin.start()
+    }
+
+    private fun resetScene() {
+        activity.setContentView(layoutId)
+        this.imgFlag = activity.findViewById(R.id.referee)
+        this.txtTurnInfo = activity.findViewById(R.id.txt_turn_info)
+        imgFlag.setImageResource(R.drawable.grandmother_flag)
+        updateScore()
+        updateFlag()
     }
 
     private fun disableAllButtons() {
@@ -139,4 +154,13 @@ open class Game(val activity: Activity, val layoutId: Int) {
         activity.findViewById<TextView>(R.id.txtScorePlayTwo).text = score2.toString()
     }
 
+    fun updateFlag()
+    {
+        imgFlag.scaleX = 1f
+        if (currentPlay == 2) {
+            imgFlag.scaleX = -1f
+        }
+
+        this.txtTurnInfo.text = activity.getString(R.string.turn_info, currentPlay)
+    }
 }

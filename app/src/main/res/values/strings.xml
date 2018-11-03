@@ -7,5 +7,6 @@
     <string name="dummy_content">Jogo da Velha</string>
     <string name="draw_message">Que pena! Ninguém ganhou.</string>
     <string name="winner_message">Parabéns jogador %1$d, Você venceu!"</string>
+    <string name="turn_info">É a vez do jogador %1$d"</string>
     <string name="revenge">Revanche</string>
 </resources>

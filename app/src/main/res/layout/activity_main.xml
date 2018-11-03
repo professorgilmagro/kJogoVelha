@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/white"
+    android:background="@android:color/holo_orange_light"
     android:padding="16dp"
     tools:context=".MainActivity">
 
@@ -19,37 +19,54 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_weight="6"
+        android:layout_weight="2"
         android:gravity="center"
         android:layout_height="0dp">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/txt_turn_info"
+                android:textColor="@android:color/white"
+                android:layout_span="3"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center">
 
             <TextView
                 android:id="@+id/txtScorePlayOne"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="0"
                 style="@style/score"/>
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:id="@+id/referee"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:src="@drawable/grandmother" />
 
             <TextView
                 android:id="@+id/txtScorePlayTwo"
-                android:layout_width="wrap_content"
                 android:text="0"
-                android:layout_height="wrap_content"
                 style="@style/score"/>
 
         </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_weight="5"
+        android:gravity="center"
+        android:layout_height="0dp">
 
         <TableRow
             android:layout_width="match_parent"
